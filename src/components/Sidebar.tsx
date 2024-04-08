@@ -3,26 +3,36 @@ import Link from "next/link";
 import React from "react";
 import { CiLogout } from "react-icons/ci";
 import SidebarItem from "./SidebarItem";
+import {
+  IoCalendarOutline,
+  IoCheckboxOutline,
+  IoListOutline,
+} from "react-icons/io5";
 
 export const Sidebar = () => {
   const sidebarItems = [
     {
-      link: "#",
+      icon: <IoCalendarOutline />,
+      path: "/dashboard",
       label: "Dashboard",
-      isSelected: true,
     },
     {
-      link: "#",
-      label: "Categories",
-      isSelected: false,
+      icon: <IoCheckboxOutline />,
+      path: "/dashboard/rest-todos",
+      label: "REST Todos",
+    },
+    {
+      icon: <IoListOutline />,
+      label: "Server Actions",
+      path: "/dashboard/server-actions",
     },
   ];
+
   return (
     <aside className="ml-[-100%] fixed z-10 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen border-r bg-white transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
       <div>
         <div className="-mx-6 px-6 py-4">
           <Link href="#" title="home">
-            {/* Next/Image */}
             <Image
               src="https://tailus.io/sources/blocks/stats-cards/preview/images/logo.svg"
               className="w-32"
@@ -34,7 +44,6 @@ export const Sidebar = () => {
         </div>
 
         <div className="mt-8 text-center">
-          {/* Next/Image */}
           <Image
             src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp"
             alt=""
@@ -49,7 +58,6 @@ export const Sidebar = () => {
         </div>
 
         <ul className="space-y-2 tracking-wide mt-8">
-          {/* TODO: src/components <SidebarItem /> */}
           {/* Active className: text-white bg-gradient-to-r from-sky-600 to-cyan-400 */}
           {sidebarItems.map((item, index) => (
             <SidebarItem key={index} {...item} />

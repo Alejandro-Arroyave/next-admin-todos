@@ -1,30 +1,36 @@
-import React from "react";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { ReactNode } from "react";
 import { CiBookmarkCheck } from "react-icons/ci";
 
 interface SidebarItemProps {
-  link: string;
+  icon: ReactNode;
+  path: string;
   label: string;
-  isSelected?: boolean;
 }
 
 const SidebarItem = ({
-  link = "#",
+  icon = <CiBookmarkCheck />,
+  path = "#",
   label,
-  isSelected = false,
 }: SidebarItemProps) => {
+  const pathname = usePathname();
+
   return (
     <li>
-      <a
-        href={link}
-        className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl ${
-          isSelected
+      <Link
+        href={path}
+        className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl hover:bg-sky-600 hover:text-white ${
+          path === pathname
             ? "text-white bg-gradient-to-r from-sky-600 to-cyan-400"
             : ""
         }`}
       >
-        <CiBookmarkCheck size={30} />
+        {icon}
         <span className="-mr-1 font-medium">{label}</span>
-      </a>
+      </Link>
     </li>
   );
 };

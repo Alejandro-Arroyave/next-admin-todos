@@ -28,6 +28,7 @@ export async function GET(request: Request) {
   return NextResponse.json(todos);
 }
 
+// POST
 const postSchema = yup.object({
   description: yup.string().required(),
   complete: yup.boolean().optional().default(false),
@@ -42,6 +43,18 @@ export async function POST(req: Request) {
     const todo = await prisma.todo.create({ data: { description, complete } });
 
     return NextResponse.json(todo);
+  } catch (error) {
+    return NextResponse.json(error, { status: 400 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    await prisma.todo.deleteMany({
+      where: { complete: true },
+    });
+
+    return NextResponse.json("deleted");
   } catch (error) {
     return NextResponse.json(error, { status: 400 });
   }
