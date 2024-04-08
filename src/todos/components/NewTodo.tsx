@@ -2,33 +2,28 @@
 
 import { FormEvent, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import { createTodo, deleteTodo } from "../helpers/todos";
-import { useRouter } from "next/navigation";
 import { Todo } from "@prisma/client";
+import { addTodo, deleteCompleted } from "../actions/todo-actions";
 
 interface NewTodoProps {
   todos: Todo[];
 }
 
 export const NewTodo = ({ todos }: NewTodoProps) => {
-  const router = useRouter();
   const [description, setDescription] = useState("");
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (description.trim().length === 0) return;
 
-    const createdTodo = await createTodo(description);
-    router.refresh();
+    await addTodo(description);
     setDescription("");
 
     console.log("form submited");
   };
 
-  const deleteCompleted = async () => {
-    await deleteTodo();
-    router.refresh();
-    console.log("completed todos deleted");
+  const deleteCompletedTodos = async () => {
+    await deleteCompleted();
   };
 
   return (
@@ -51,8 +46,7 @@ export const NewTodo = ({ todos }: NewTodoProps) => {
       <span className="flex flex-1"></span>
 
       <button
-        //TODO: onClick={ () => deleteCompleted() }
-        onClick={deleteCompleted}
+        onClick={deleteCompletedTodos}
         type="button"
         className="flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all"
       >
