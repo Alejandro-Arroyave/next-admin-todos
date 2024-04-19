@@ -19,6 +19,11 @@ Steps to run development app:
    ```
 7. Execute seed to create local database (`localhost:3000/api/seed`)
 
+## Nota: Default user
+
+**user:** test@test.com
+**password:** 123456
+
 # Prisma commands
 
 ```
